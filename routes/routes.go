@@ -5,6 +5,7 @@ import (
 	"cal-blog-service/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"log"
 	"net/http"
 )
 
@@ -13,7 +14,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
 
 	if err := r.SetTrustedProxies(nil); err != nil {
-		log.PrintF("Failed to set trusted proxies: %v", err)
+		log.Printf("Uh oh, failed to set trusted proxies: %v", err)
 	}
 
 	// API Routes
