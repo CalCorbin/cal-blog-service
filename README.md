@@ -27,9 +27,9 @@ This is a backend service I built in go to house all the data for my personal bl
    ```bash
    go mod download
    ```
-3Run the application
+3. Start the server
    ```bash
-   go run main.go
+   air
    ```
 
 ### Linting
