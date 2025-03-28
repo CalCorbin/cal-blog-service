@@ -24,6 +24,18 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		c.JSON(http.StatusOK, posts)
 	})
 
+	r.GET("/posts/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		var post models.BlogPost
+
+		if err := db.First(&post, id).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Post not found"})
+			return
+		}
+
+		c.JSON(http.StatusOK, post)
+	})
+
 	r.POST("/posts", func(c *gin.Context) {
 		var post models.BlogPost
 		if err := c.BindJSON(&post); err != nil {
