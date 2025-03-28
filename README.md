@@ -8,6 +8,7 @@ This is a backend service I built in go to house all the data for my personal bl
   * [Local Development](#local-development)
     * [Prerequisites](#prerequisites)
     * [Installation and Running](#installation-and-running)
+    * [Linting](#linting)
     
 
 ## Local Development
@@ -30,3 +31,11 @@ This is a backend service I built in go to house all the data for my personal bl
    ```bash
    go run main.go
    ```
+
+### Linting
+
+1. Run linting locally
+   ```bash
+    golangci-lint run
+    ```
+2. Lint all changes before creating a pull request, otherwise changes will be rejected.
