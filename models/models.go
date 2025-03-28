@@ -8,3 +8,7 @@ type BlogPost struct {
 	Content string
 	Author  string
 }
+
+func (b *BlogPost) Validate() bool {
+	return b.Title != "" && b.Content != "" && b.Author != ""
+}
