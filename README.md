@@ -9,6 +9,7 @@ This is a backend service I built in go to house all the data for my personal bl
     * [Prerequisites](#prerequisites)
     * [Installation and Running](#installation-and-running)
     * [Linting](#linting)
+    * [Testing](#testing)
     
 
 ## Local Development
@@ -29,13 +30,22 @@ This is a backend service I built in go to house all the data for my personal bl
    ```
 3. Start the server
    ```bash
-   air
+   make start
    ```
 
 ### Linting
 
 1. Run linting locally
    ```bash
-    golangci-lint run
+    make lint
     ```
 2. Lint all changes before creating a pull request, otherwise changes will be rejected.
+
+### Testing
+
+1. Run tests locally
+    ```bash
+    make test
+   ```
+2. My goal with this repo is maintain both 100% test coverage, as well as useful tests. I want to exercise the code, and
+feel confident in any changes. Pull requests will be automatically rejected if tests are not passing.
