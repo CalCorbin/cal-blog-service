@@ -11,61 +11,61 @@ import (
 
 // SetupRouter initializes the Gin router and defines all routes
 func SetupRouter(db *gorm.DB) *gin.Engine {
-	r := gin.Default()
+	engine := gin.Default()
 
-	if err := r.SetTrustedProxies(nil); err != nil {
+	if err := engine.SetTrustedProxies(nil); err != nil {
 		log.Printf("Uh oh, failed to set trusted proxies: %v", err)
 	}
 
 	// API Routes
-	r.GET("/posts", func(c *gin.Context) {
+	engine.GET("/posts", func(context *gin.Context) {
 		var posts []models.BlogPost
 		db.Find(&posts)
-		c.JSON(http.StatusOK, posts)
+		context.JSON(http.StatusOK, posts)
 	})
 
-	r.GET("/posts/:id", func(c *gin.Context) {
-		id := c.Param("id")
+	engine.GET("/posts/:id", func(context *gin.Context) {
+		id := context.Param("id")
 		var post models.BlogPost
 
 		if err := db.First(&post, id).Error; err != nil {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Post not found"})
+			context.JSON(http.StatusNotFound, gin.H{"error": "Post not found"})
 			return
 		}
 
-		c.JSON(http.StatusOK, post)
+		context.JSON(http.StatusOK, post)
 	})
 
-	r.POST("/posts", func(c *gin.Context) {
+	engine.POST("/posts", func(context *gin.Context) {
 		var post models.BlogPost
-		if err := c.BindJSON(&post); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		if err := context.BindJSON(&post); err != nil {
+			context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 		db.Create(&post)
-		c.JSON(http.StatusCreated, post)
+		context.JSON(http.StatusCreated, post)
 	})
 
-	r.PUT("/posts/:id", func(c *gin.Context) {
-		id := c.Param("id")
+	engine.PUT("/posts/:id", func(context *gin.Context) {
+		id := context.Param("id")
 		var post models.BlogPost
 		if err := db.First(&post, id).Error; err != nil {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Post not found"})
+			context.JSON(http.StatusNotFound, gin.H{"error": "Post not found"})
 			return
 		}
-		if err := c.BindJSON(&post); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		if err := context.BindJSON(&post); err != nil {
+			context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 		db.Save(&post)
-		c.JSON(http.StatusOK, post)
+		context.JSON(http.StatusOK, post)
 	})
 
-	r.DELETE("/posts/:id", func(c *gin.Context) {
-		id := c.Param("id")
+	engine.DELETE("/posts/:id", func(context *gin.Context) {
+		id := context.Param("id")
 		db.Delete(&models.BlogPost{}, id)
-		c.JSON(http.StatusOK, gin.H{"message": "Post deleted successfully"})
+		context.JSON(http.StatusOK, gin.H{"message": "Post deleted successfully"})
 	})
 
-	return r
+	return engine
 }
