@@ -23,7 +23,7 @@ start:
 
 # Run tests
 test:
-	$(GOTEST) -v -cover ./...
+	$(GOTEST) -v=false -cover ./...
 
 # Clean build files
 clean:
