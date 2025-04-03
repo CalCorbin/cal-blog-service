@@ -33,7 +33,7 @@ func initDatabase() {
 }
 
 func runMigrations() {
-	err := DB.AutoMigrate(&models.BlogPost{})
+	err := DB.AutoMigrate(&models.BlogPost{}, &models.User{})
 	if err != nil {
 		log.Fatalf("Failed to migrate database schema: %v", err)
 	}
