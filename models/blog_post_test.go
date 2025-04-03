@@ -7,9 +7,9 @@ import (
 func TestBlogPostCreation(t *testing.T) {
 	// Create a new blog post
 	post := BlogPost{
-		Title:   "Cowboy Bebop",
-		Content: "See you later space cowboy",
-		Author:  "Spike Spiegel",
+		Title:    "Cowboy Bebop",
+		Content:  "See you later space cowboy",
+		AuthorID: "Spike Spiegel",
 	}
 
 	// Verify fields are set correctly
@@ -21,16 +21,16 @@ func TestBlogPostCreation(t *testing.T) {
 		t.Errorf("Expected Content to be 'See you later space cowboy', got '%s'", post.Content)
 	}
 
-	if post.Author != "Spike Spiegel" {
-		t.Errorf("Expected Author to be 'Spike Spiegel', got '%s'", post.Author)
+	if post.AuthorID != "Spike Spiegel" {
+		t.Errorf("Expected AuthorID to be 'Spike Spiegel', got '%s'", post.AuthorID)
 	}
 }
 
 func TestBlogPostValid(t *testing.T) {
 	post := BlogPost{
-		Title:   "Cowboy Bebop",
-		Content: "See you later space cowboy",
-		Author:  "Spike Spiegel",
+		Title:    "Cowboy Bebop",
+		Content:  "See you later space cowboy",
+		AuthorID: "Spike Spiegel",
 	}
 
 	if !post.Validate() {
@@ -40,9 +40,9 @@ func TestBlogPostValid(t *testing.T) {
 
 func TestBlogPostInvalid(t *testing.T) {
 	post := BlogPost{
-		Title:   "",
-		Content: "See you later space cowboy",
-		Author:  "Spike Spiegel",
+		Title:    "",
+		Content:  "See you later space cowboy",
+		AuthorID: "Spike Spiegel",
 	}
 
 	if post.Validate() {
